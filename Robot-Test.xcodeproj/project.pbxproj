@@ -337,6 +337,7 @@
 				E76BF4751B7B6C0C00638309 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

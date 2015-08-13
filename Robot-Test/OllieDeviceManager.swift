@@ -59,9 +59,9 @@ class OllieDeviceManager: NSObject, UITableViewDataSource, UITableViewDelegate {
         }
         
         self.ollie = RKOllie(robot: self.ollieBLE)
-        RKRobotDiscoveryAgent.connect(self.ollie.robot)
-        print(self.ollie.isConnected())
-        return self.ollie.isConnected()
+//        RKRobotDiscoveryAgentLE.connect(self.ollie.robot)
+        print(self.ollie.isOnline())
+        return self.ollie.isOnline()
     }
     
     func moveRight(heading: Float, velocity: Float) {

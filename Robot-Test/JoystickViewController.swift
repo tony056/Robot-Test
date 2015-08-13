@@ -11,14 +11,15 @@ import UIKit
 class JoystickViewController: UIViewController {
 
 //    var myRobotLE: RKRobotLE?
-//    var myOllie: RKOllie!
+    var myOllie: RKOllie!
     var ollieDeviceManager : OllieDeviceManager!
     var isConnected : Bool = false
     
     @IBAction func moveRight(sender: UIButton) {
-        if self.isConnected {
+        if self.myOllie != nil {
             print("right")
-            self.ollieDeviceManager.moveRight(90, velocity: 0.5)
+//            self.ollieDeviceManager.moveRight(90, velocity: 0.5)
+            self.myOllie.driveWithHeading(90, andVelocity: 0.5)
         }
     }
     
@@ -26,9 +27,16 @@ class JoystickViewController: UIViewController {
         super.viewDidLoad()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillResignActive:", name: UIApplicationWillResignActiveNotification, object: nil)
         // Do any additional setup after loading the view.
-        
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleRobotStateChangeNotification", name: kRobotDidChangeStateNotification, object: nil)
+//        RKRobotDiscoveryAgent.sharedAgent().addNotificationObserver(self, selector: "handleRobotStateChangeNotification")
         self.isConnected = self.ollieDeviceManager.connectToTheOllie()
-        print("Joystick is connected: \(self.isConnected)")
+        if self.isConnected {
+            self.ollieDeviceManager.stopDiscovery()
+        }
+//        self.myOllie = RKOllie(robot: self.ollieDeviceManager.ollieBLE)
+        RKRobotDiscoveryAgentLE.connect(self.ollieDeviceManager.ollie.robot)
+        self.myOllie = self.ollieDeviceManager.ollie
+        print("Joystick is connected: \(self.myOllie.robot.isOnline())")
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,5 +57,25 @@ class JoystickViewController: UIViewController {
     
     func appWillResignActive(note: NSNotification){
         self.ollieDeviceManager.disconnect()
+    }
+    
+    func handleRobotStateChangeNotification(notification: RKRobotChangedStateNotification){
+        print("haah")
+        switch(notification.type){
+        case .Online:
+            print("Online")
+            break
+        case .Disconnected:
+            print("Disconnected")
+            break
+        case .Offline:
+            print("Offline")
+            break
+        case .Connecting:
+            print("Connecting")
+            break
+        default:
+            break
+        }
     }
 }

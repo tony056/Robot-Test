@@ -88,7 +88,7 @@ class ViewController: UIViewController {
                 destinationVC.ollieDeviceManager = self.ollieDeviceManager
 //                destinationVC.myRobotLE = robotList[indexPath.row]
                 print("next view")
-                stopDiscovery()
+//                stopDiscovery()
             }
             
         }
