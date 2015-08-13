@@ -13,7 +13,8 @@
 		E76BF46C1B7B6C0C00638309 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E76BF46B1B7B6C0C00638309 /* Assets.xcassets */; };
 		E76BF46F1B7B6C0C00638309 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E76BF46D1B7B6C0C00638309 /* LaunchScreen.storyboard */; };
 		E76BF4771B7B6C4200638309 /* RobotKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E76BF4761B7B6C4200638309 /* RobotKit.framework */; };
-		E76BF47F1B7B8B6B00638309 /* RobotKitLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E76BF47E1B7B8B6B00638309 /* RobotKitLE.framework */; };
+		E76BF4811B7B9F1D00638309 /* JoystickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76BF4801B7B9F1D00638309 /* JoystickViewController.swift */; };
+		E76BF4831B7C2AAD00638309 /* OllieDeviceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76BF4821B7C2AAD00638309 /* OllieDeviceManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,8 @@
 		E76BF4761B7B6C4200638309 /* RobotKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RobotKit.framework; sourceTree = "<group>"; };
 		E76BF4781B7B6D5500638309 /* Robot-Test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Robot-Test-Bridging-Header.h"; sourceTree = "<group>"; };
 		E76BF47E1B7B8B6B00638309 /* RobotKitLE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RobotKitLE.framework; path = "Robot-Test/RobotKit.framework/Frameworks/RobotKitLE.framework"; sourceTree = "<group>"; };
+		E76BF4801B7B9F1D00638309 /* JoystickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickViewController.swift; sourceTree = "<group>"; };
+		E76BF4821B7C2AAD00638309 /* OllieDeviceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OllieDeviceManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +37,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E76BF47F1B7B8B6B00638309 /* RobotKitLE.framework in Frameworks */,
 				E76BF4771B7B6C4200638309 /* RobotKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -70,6 +72,8 @@
 				E76BF46D1B7B6C0C00638309 /* LaunchScreen.storyboard */,
 				E76BF4701B7B6C0C00638309 /* Info.plist */,
 				E76BF4781B7B6D5500638309 /* Robot-Test-Bridging-Header.h */,
+				E76BF4801B7B9F1D00638309 /* JoystickViewController.swift */,
+				E76BF4821B7C2AAD00638309 /* OllieDeviceManager.swift */,
 			);
 			path = "Robot-Test";
 			sourceTree = "<group>";
@@ -152,7 +156,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E76BF4671B7B6C0C00638309 /* ViewController.swift in Sources */,
+				E76BF4811B7B9F1D00638309 /* JoystickViewController.swift in Sources */,
 				E76BF4651B7B6C0C00638309 /* AppDelegate.swift in Sources */,
+				E76BF4831B7C2AAD00638309 /* OllieDeviceManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

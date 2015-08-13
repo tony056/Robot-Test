@@ -11,32 +11,21 @@ import UIKit
 
 class ViewController: UIViewController {
     
-//    let kRobotIsAvailableNotification : String = "available"
-    var robot: RKConvenienceRobot!
-    var myerror: NSError?
-    var ledOn = false
+//    var robot: RKRobotLE!
+//    var myerror: NSError?
+//    var ledOn = false
+//    var robotList = [RKRobotLE]()
+//    var robotCellIdentifier: String = "robotCell"
+    var ollieDeviceManager : OllieDeviceManager = OllieDeviceManager()
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appWillResignActive:", name: UIApplicationWillResignActiveNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "appDidBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleAvailable:", name: kRobotIsAvailableNotification, object: nil)
-//        RKRobotDiscoveryAgent.sharedAgent().addNotificationObserver(self, selector: "handleRobotStateChangeNotification:")
-        RKRobotDiscoveryAgentLE.sharedAgent().stopDiscovery()
-        
-        RKRobotDiscoveryAgentLE.sharedAgent().connectStrategy = 
-        
-        let state = RKRobotDiscoveryAgentLE.sharedAgent().startDiscoveryAndReturnError(&myerror)
-        
-        if !state {
-             println("Error : \(error!)")
-        }
-        
-        
-//        RKRobotDiscoveryAgentLE.sharedAgent().stopDiscovery()
-        
-        
+        self.ollieDeviceManager.startDiscovery()
+        tableView.dataSource = self.ollieDeviceManager
+        tableView.delegate = self.ollieDeviceManager
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,45 +43,58 @@ class ViewController: UIViewController {
         RKRobotDiscoveryAgentLE.sharedAgent().startDiscovery()
     }
     
-    func handleRobotStateChangeNotification(notification: RKRobotChangedStateNotification){
-        print("handleRobotState")
-        let noteRobot = notification.robot
-        
-        switch(notification.type){
-            case .Connecting:
-                break
-            case .Online:
-                if(noteRobot.isKindOfClass(RKRobotLE)){
-                        print("work")
-                        self.robot = RKOllie(robot: noteRobot)
-                }else {
-                        print("Weird")
-                }
-                break
-            case .Disconnected:
-                startDiscovery()
-                break
-            default:
-                break
-        }
-    }
-    
     func disconnectRobot(){
-        self.robot.disconnect()
+        self.ollieDeviceManager.disconnect()
     }
     
-    func startDiscovery(){
-        RKRobotDiscoveryAgent.startDiscovery()
-    }
     
     func stopDiscovery(){
-        RKRobotDiscoveryAgent.stopDiscovery()
+        self.ollieDeviceManager.stopDiscovery()
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "handleAvailable", object: nil)
     }
     
     func handleAvailable(note: RKRobotAvailableNotification){
         print(note.robots.count)
-//        print(note.robots[0].name)
+        if self.ollieDeviceManager.deviceList.count != note.robots.count {
+            for bot in note.robots {
+                if !self.ollieDeviceManager.deviceList.contains(bot as! RKRobotLE) {
+                    self.ollieDeviceManager.deviceList.append(bot as! RKRobotLE)
+                }
+            }
+            tableView.reloadData()
+        }
     }
+    
+//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        return 1
+//    }
+//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCellWithIdentifier(robotCellIdentifier, forIndexPath: indexPath) as UITableViewCell
+//        
+//        let row = indexPath.row
+//        cell.textLabel?.text = robotList[row].name()
+//        
+//        return cell
+//    }
+//    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return robotList.count
+//    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "robotConnectSegue" {
+            let destinationVC = segue.destinationViewController as! JoystickViewController
+            if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
+                self.ollieDeviceManager.setBLE(indexPath.row)
+                destinationVC.ollieDeviceManager = self.ollieDeviceManager
+//                destinationVC.myRobotLE = robotList[indexPath.row]
+                print("next view")
+                stopDiscovery()
+            }
+            
+        }
+        
+    }
+
 
 }
 

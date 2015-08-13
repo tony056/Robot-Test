@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="uJp-4w-jYu">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -21,7 +22,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="2d3-mT-lpd">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="robotCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="robotCell" id="2d3-mT-lpd">
                                         <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2d3-mT-lpd" id="9nv-e6-cCv">
@@ -30,6 +31,9 @@
                                             <animations/>
                                         </tableViewCellContentView>
                                         <animations/>
+                                        <connections>
+                                            <segue destination="wpU-6h-EPO" kind="presentation" identifier="robotConnectSegue" id="FlT-yb-du7"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -38,10 +42,58 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Px1-JK-1ow"/>
+                    <connections>
+                        <outlet property="tableView" destination="0bM-1N-Ug1" id="tWS-hI-VvL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1192" y="337"/>
+        </scene>
+        <!--Joystick View Controller-->
+        <scene sceneID="vVs-Gx-4sv">
+            <objects>
+                <viewController id="wpU-6h-EPO" customClass="JoystickViewController" customModule="Robot_Test" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jKd-MH-Ej3"/>
+                        <viewControllerLayoutGuide type="bottom" id="RME-yZ-5yf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bzj-yG-K1i">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yaU-AJ-M2Z">
+                                <rect key="frame" x="282" y="285" width="36" height="30"/>
+                                <animations/>
+                                <state key="normal" title="Right"/>
+                                <connections>
+                                    <action selector="moveRight:" destination="wpU-6h-EPO" eventType="touchUpInside" id="g0h-wo-XBA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yaU-AJ-M2Z" firstAttribute="top" secondItem="jKd-MH-Ej3" secondAttribute="bottom" constant="239" id="6Sy-fb-Z99"/>
+                            <constraint firstItem="yaU-AJ-M2Z" firstAttribute="centerY" secondItem="bzj-yG-K1i" secondAttribute="centerY" id="O4C-tX-BGQ"/>
+                            <constraint firstItem="yaU-AJ-M2Z" firstAttribute="top" secondItem="jKd-MH-Ej3" secondAttribute="bottom" constant="182" id="ViW-Yl-chh"/>
+                            <constraint firstItem="yaU-AJ-M2Z" firstAttribute="centerX" secondItem="bzj-yG-K1i" secondAttribute="centerX" id="Zbd-zS-JaG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yaU-AJ-M2Z" secondAttribute="trailing" constant="110" id="dgF-jr-k63"/>
+                            <constraint firstItem="yaU-AJ-M2Z" firstAttribute="centerX" secondItem="bzj-yG-K1i" secondAttribute="centerX" id="k0W-Az-x3T"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="6Sy-fb-Z99"/>
+                                <exclude reference="ViW-Yl-chh"/>
+                                <exclude reference="dgF-jr-k63"/>
+                                <exclude reference="k0W-Az-x3T"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nF4-og-hM3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1881" y="331"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nM8-0o-N5R">
